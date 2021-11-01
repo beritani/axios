@@ -1,6 +1,6 @@
 # Axios Helper
 
-## Rate Limit
+## Rate Limit
 
 ```typescript
 import { AxiosRate } from "axios-helper";
