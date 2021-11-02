@@ -1,5 +1,5 @@
 {
-  "name": "axios-helper",
+  "name": "@beritani/axios",
   "version": "1.0.0",
   "description": "Useful helper functions and classes for using axios",
   "main": "dist/index.js",
@@ -7,6 +7,11 @@
   "repository": {
     "url": "https://github.com/beritani/axios-helper"
   },
+  "keywords": [
+    "axios",
+    "helper",
+    "requests"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
