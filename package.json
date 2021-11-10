@@ -1,18 +1,33 @@
 {
-  "name": "axios-helper",
-  "version": "1.0.0",
+  "name": "@beritani/axios",
+  "version": "1.1.0",
   "description": "Useful helper functions and classes for using axios",
-  "main": "dist/index.js",
-  "types": "dist/index.d.js",
+  "main": "dist/axios.js",
+  "types": "dist/axios.d.js",
   "repository": {
     "url": "https://github.com/beritani/axios-helper"
   },
+  "keywords": [
+    "axios",
+    "rate",
+    "limit",
+    "utils",
+    "helper",
+    "requests"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "beritani",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@types/jest": "^27.0.2",
+    "jest": "^27.3.1",
+    "ts-node": "^10.4.0"
   }
 }
