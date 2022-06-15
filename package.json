@@ -4,7 +4,8 @@
   "description": "Useful helper functions and wrappers axios",
   "main": "dist/index.js",
   "repository": {
-    "url": "https://github.com/beritani/axios"
+    "type": "git",
+    "url": "https://github.com/beritani/axios.git"
   },
   "keywords": [
     "axios",
