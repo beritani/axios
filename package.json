@@ -1,6 +1,6 @@
 {
   "name": "@beritani/axios",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Useful helper functions and wrappers axios",
   "main": "dist/axios.js",
   "repository": {
