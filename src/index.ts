@@ -5,9 +5,6 @@ import {
 
 interface AxiosRequestConfig extends BaseAxiosRequestConfig {
   rate?: number;
-  //   delay?: number;
-  //   retries?: number;
-  //   attempt?: number;
 }
 
 export class Axios extends BaseAxios {
@@ -25,14 +22,9 @@ export class Axios extends BaseAxios {
   constructor(config?: AxiosRequestConfig) {
     const baseConfig = { ...config };
     delete baseConfig.rate;
-    // delete baseConfig.delay;
-    // delete baseConfig.retries;
-    // delete baseConfig.attempt;
 
     super(baseConfig as BaseAxiosRequestConfig);
     this.rate = config?.rate;
-    // this.delay = config?.delay;
-    // this.retries = config?.retries;
 
     if (this.rate) {
       this.addRateInterceptor();

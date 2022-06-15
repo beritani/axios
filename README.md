@@ -3,12 +3,12 @@
 ## Rate Limit
 
 ```typescript
-import { AxiosRate } from "@beritani/axios";
-
-axios = new AxiosRate(5); // 5 calls per second
-
-axios.call({
-  method: "get",
-  url: "www.github.com",
+const axios = new Axios({
+  rate: 2, // Limit of 2 calls per second
 });
+
+axios
+  .get("https://google.com")
+  .then((res) => console.log(res.config))
+  .catch(console.error);
 ```

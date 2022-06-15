@@ -1,4 +1,4 @@
-import Axios from "../src/axios";
+import Axios from "../src/index";
 
 const axios = new Axios({
   rate: 1,
