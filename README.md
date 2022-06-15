@@ -3,7 +3,7 @@
 ## Rate Limit
 
 ```typescript
-import { AxiosRate } from "axios-helper";
+import { AxiosRate } from "@beritani/axios";
 
 axios = new AxiosRate(5); // 5 calls per second
 

@@ -1,11 +1,10 @@
 {
   "name": "@beritani/axios",
   "version": "1.1.0",
-  "description": "Useful helper functions and classes for using axios",
+  "description": "Useful helper functions and wrappers axios",
   "main": "dist/axios.js",
-  "types": "dist/axios.d.js",
   "repository": {
-    "url": "https://github.com/beritani/axios-helper"
+    "url": "https://github.com/beritani/axios"
   },
   "keywords": [
     "axios",
@@ -16,7 +15,8 @@
     "requests"
   ],
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "author": "beritani",
   "license": "ISC",
@@ -24,10 +24,7 @@
     "axios": "^0.24.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.16.0",
-    "@babel/preset-typescript": "^7.16.0",
     "@types/jest": "^27.0.2",
-    "jest": "^27.3.1",
-    "ts-node": "^10.4.0"
+    "jest": "^27.3.1"
   }
 }
