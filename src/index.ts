@@ -1,76 +1,53 @@
-import {
-  AxiosRequestConfig as BaseAxiosRequestConfig,
-  Axios as BaseAxios,
-} from "axios";
+import type { Axios } from "axios";
 
-interface AxiosRequestConfig extends BaseAxiosRequestConfig {
-  rate?: number;
+declare module "axios" {
+  export interface Axios {
+    // Rate Limit Requests
+    rate?: number;
+    queue?: {
+      config: AxiosRequestConfig;
+      resolve: (value: AxiosRequestConfig) => void;
+    }[];
+    interval?: number | NodeJS.Timer;
+
+    // Limit Max Retries
+    maxAttempts?: number;
+  }
+
+  export interface AxiosRequestConfig {
+    attempt?: number;
+  }
 }
 
-export class Axios extends BaseAxios {
-  readonly rate?: number;
-  readonly delay?: number;
-  readonly retries?: number;
+export const rateLimit = (axios: Axios, rate: number) => {
+  axios.rate = rate;
+  axios.queue = [];
 
-  private interval?: NodeJS.Timer;
-
-  private queue?: {
-    config: AxiosRequestConfig;
-    resolve: (value: any) => void;
-  }[];
-
-  constructor(config?: AxiosRequestConfig) {
-    const baseConfig = { ...config };
-    delete baseConfig.rate;
-
-    super(baseConfig as BaseAxiosRequestConfig);
-    this.rate = config?.rate;
-
-    if (this.rate) {
-      this.addRateInterceptor();
-    }
-  }
-
-  private addRateInterceptor() {
-    this.queue = [];
-    this.interceptors.request.use(
-      (config) => {
-        const promise = new Promise((resolve) => {
-          this.queue?.push({
-            config,
-            resolve,
-          });
-          this.startRateInterval();
-        });
-
-        return promise;
-      },
-      (error) => {
-        return Promise.reject(error);
-      }
-    );
-  }
-
-  clearRateInterval() {
-    if (this.interval) clearInterval(this.interval);
-    this.interval = undefined;
-  }
-
-  private startRateInterval() {
-    if (this.interval) return;
-
+  const startRateInterval = () => {
     const func = () => {
-      const req = this.queue?.shift();
-      if (req) {
-        req.resolve(req.config);
-      } else {
-        this.clearRateInterval();
-      }
+      // Get Next Request
+      const req = axios.queue?.shift();
+      if (req) return req.resolve(req.config);
+
+      // Clear interval if no more requests
+      if (axios.interval) clearInterval(axios.interval);
+      axios.interval = undefined;
     };
 
     func();
-    this.interval = setInterval(func, 1000 / this.rate!);
-  }
-}
+    axios.interval = setInterval(func, 1000 / axios.rate!);
+  };
 
-export default Axios;
+  axios.interceptors.request.use(
+    (config) => {
+      const promise = new Promise<any>((resolve) => {
+        axios.queue?.push({ config, resolve });
+        if (!axios.interval) startRateInterval();
+      });
+      return promise;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+};

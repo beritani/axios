@@ -1,14 +1,16 @@
 # Axios Helper
 
+Helpful wrappers for axios requests, e.g. rate limiting and max retry attempts.
+
 ## Rate Limit
 
-```typescript
-const axios = new Axios({
-  rate: 2, // Limit of 2 calls per second
-});
+Specify how many requests are allowed per second
 
-axios
-  .get("https://google.com")
-  .then((res) => console.log(res.config))
-  .catch(console.error);
+```ts
+import axios from "axios";
+import { rateLimit } from "@beritani/axios";
+
+rateLimit(axios);
+
+axios.get("https://google.com");
 ```
