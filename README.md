@@ -10,7 +10,13 @@ Specify how many requests are allowed per second
 import axios from "axios";
 import { rateLimit } from "@beritani/axios";
 
-rateLimit(axios);
+rateLimit(axios, 2); // 2 requests per second
 
 axios.get("https://google.com");
 ```
+
+## License
+
+MIT License (MIT). Copyright (c) 2023 Sean N. (https://seann.co.uk)
+
+See [LICENSE](/LICENSE).
