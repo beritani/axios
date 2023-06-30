@@ -1,6 +1,6 @@
 {
   "name": "@beritani/axios",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Useful helper functions and wrappers for axios",
   "files": [
     "*.js",
@@ -35,6 +35,7 @@
       ]
     }
   },
+  "types": "index.d.ts",
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^29.5.2",

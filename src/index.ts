@@ -51,3 +51,27 @@ export const rateLimit = (axios: Axios, rate: number) => {
     }
   );
 };
+
+export const retryFailed = (
+  axios: Axios,
+  maxAttempts: number = 3,
+  successCodes: number[] = [200]
+) => {
+  axios.maxAttempts = maxAttempts;
+
+  axios.interceptors.response.use(
+    (res) => {
+      res.config.attempt = res.config.attempt || 1;
+      // If limit reached or successful response return
+      if (res.config.attempt > axios.maxAttempts! || successCodes.includes(res.status)) return res;
+      // Else increate attempt count and retry
+      res.config.attempt++;
+      return axios.request(res.config);
+    },
+    (err) => {
+      return Promise.reject(err);
+    }
+  );
+};
+
+export default { rateLimit, retryFailed };
